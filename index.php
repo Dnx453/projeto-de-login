@@ -8,10 +8,23 @@ include 'conexao.php';
 //$enviar->bindValue(":s","Felipe23");
 //$enviar->execute();
 
-$del = $pdo->prepare("DELETE FROM usuarios WHERE id = :id");
-$id = 1;
-$del->bindValue(":id",$id);
-$del->execute();
+//$del = $pdo->prepare("DELETE FROM usuarios WHERE id = :id");
+//$id = 1;
+//$del->bindValue(":id",$id);
+//$del->execute();
+
+//$upd = $pdo->prepare("UPDATE usuarios SET cpf = :cpf WHERE id = :id");
+//$id = 2;
+//$cpf = '08423090981';
+//$upd->bindValue(":id",$id);
+//$upd->bindValue(":cpf",$cpf);
+//$upd->execute();
+
+$slc = $pdo->prepare("SELECT * FROM usuarios WHERE id = :id");
+$id = 2;
+$slc->bindValue(":id",$id);
+$slc->execute();
+$resul = $slc->fetch(PDO::FETCH_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="pt-BR">
@@ -30,6 +43,24 @@ $del->execute();
     
     <input type="submit" value="Enviar">
 </form>
+
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Nome</th>
+        <th>Email</th>
+        <th>Cpf</th>
+        <th>Senha</th>
+    </tr>
+    <tr>
+      <?php foreach ($resul as $key => $value) {
+        echo "<td>" .$value . "</td>";
+      }
+      ?>
+
+    </tr>
+    
+</table>
 
 </body>
 </html>
